@@ -10,7 +10,7 @@
   font-family: 'Lato', sans-serif
 }
 
- .home, .dashboard , .upload_generate, .details, .settings_tab{
+ .home, .upload_generate, .details, .settings_tab{
   display :flex;
   height:90vh;
   align-items: center;

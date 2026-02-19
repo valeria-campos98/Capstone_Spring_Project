@@ -1,0 +1,63 @@
+
+.upload-page {
+ width: 100%;
+  margin: 80px auto;          /* center horizontally */
+  padding: 70px 300px 40px; /* top | sides | bottom */
+  max-width: 900px;
+}
+
+.upload-grid{
+    display :grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.upload-title {
+    width: 100%;
+    text-align:center;
+    white-space:nowrap;
+}
+
+.upload-subtitle{
+    white-space:nowrap;
+    padding: 10px 0 20px;
+}
+
+.upload-summary {
+    grid-column: span 2;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 32px ;
+}
+.upload-summary h3{
+    padding: 0 0 15px;
+    font-size:25px;
+}
+
+.generate-button{
+margin-top: 24px;
+background-color: rgb(95, 231, 111);
+color: black;
+border-radius: 8px;
+font-weight: 550;
+font-size: 15px;
+cursor:pointer;
+transition:all 0.2s ease;
+border:none;
+}
+
+.generate-button:hover{
+    background-color: rgb(56, 224, 41);
+
+}
+
+.upload-summary li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.icon{
+    font-size: 23px;
+}

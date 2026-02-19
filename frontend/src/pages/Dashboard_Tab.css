@@ -1,6 +1,8 @@
 
 
 .dashboard-table-wrapper {
+  max-width: 1000px;
+  margin: 60px auto;
   padding: 20px;
 }
 
@@ -10,6 +12,7 @@
   border-collapse: collapse;   /* IMPORTANT */
   margin-top: 20px;
   background-color: white;
+  color:black;
 }
 
 /* Header styling */
@@ -21,7 +24,7 @@
 .dashboard-table th,
 .dashboard-table td {
   border: 1px solid #ccc;     /* This adds borders */
-  padding: 10px;
+  padding: 8px;
   text-align: left;
   font-size: 14px;
 }

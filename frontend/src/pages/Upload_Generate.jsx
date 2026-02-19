@@ -1,6 +1,9 @@
 import { useState } from "react";
 import FileUploader from "../components/FileUploader";
 import axios from "axios";
+import "./Upload_Generate.css";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 
 export default function Upload_Generate() {
@@ -32,11 +35,13 @@ export default function Upload_Generate() {
 }
 
   return (
-    <div style={{ maxWidth: 900, margin: "40px auto", padding: 16 }}>
-      <h1>Upload Reports</h1>
-      <p>Upload the required files to generate the Master Dataset.</p>
+    <div className="upload-page">
+      <h1 className= "upload-title">Upload Reports</h1>
+      <p className="upload-subtitle">
+      Upload the required files to generate the Master Dataset.</p>
 
-      <div style={{ display: "grid", gap: 16 }}>
+    
+      <div className = "upload-grid">
         <FileUploader
           label="Restock Report (CSV/XLSX) "
           accept=".csv,.xlsx,.xls"
@@ -65,13 +70,13 @@ export default function Upload_Generate() {
           onUploaded={setInventoryInfo}
         />
 
-        <div style={{ border: "1px solid #ddd", borderRadius: 8, padding: 16 }}>
-          <h3>Upload Summary</h3>
+        <div className = "upload-summary"> 
+          <h3>Upload Progress</h3>
           <ul>
-            <li>Restock: {restockInfo ? "✅" : "❌"}</li>
-            <li>Warehouse: {warehouseInfo ? "✅" : "❌"}</li>
-            <li>Database: {databaseInfo ? "✅" : "❌"}</li>
-            <li>Inventory: {inventoryInfo? "✅" : "❌"} </li>
+            <li>Restock: {restockInfo ? <IoMdCheckmarkCircleOutline className="icon success" /> : <RiErrorWarningLine className="icon error" />}</li>
+            <li>Warehouse: {warehouseInfo ? <IoMdCheckmarkCircleOutline className="icon success" /> : <RiErrorWarningLine className="icon error" />}</li>
+            <li>Database: {databaseInfo ? <IoMdCheckmarkCircleOutline className="icon success" />  : <RiErrorWarningLine className="icon error" />}</li>
+            <li>Inventory: {inventoryInfo? <IoMdCheckmarkCircleOutline className="icon success" /> : <RiErrorWarningLine className="icon error" />} </li>
           </ul>
           {/*<p style={{ fontSize: 13, color: "#555" }}>
             You can now generate Master File.
@@ -79,6 +84,7 @@ export default function Upload_Generate() {
           */}
 
           <button
+          className="generate-button"
           onClick={downloadMaster}
           disabled={!(restockInfo && warehouseInfo && databaseInfo)}
         >
