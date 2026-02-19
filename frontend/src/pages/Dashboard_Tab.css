@@ -1,0 +1,37 @@
+
+
+.dashboard-table-wrapper {
+  padding: 20px;
+}
+
+/* Make table take full width */
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;   /* IMPORTANT */
+  margin-top: 20px;
+  background-color: white;
+}
+
+/* Header styling */
+.dashboard-table thead {
+  background-color: #f4f4f4;
+}
+
+/* Borders for ALL cells */
+.dashboard-table th,
+.dashboard-table td {
+  border: 1px solid #ccc;     /* This adds borders */
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+/* Optional hover effect */
+.dashboard-table tbody tr:hover {
+  background-color: #ecbf6b;
+}
+
+/* Optional: alternating row colors */
+.dashboard-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}

@@ -1,11 +1,35 @@
 import { useState } from "react";
 import FileUploader from "../components/FileUploader";
+import axios from "axios";
+
 
 export default function Upload_Generate() {
   const [restockInfo, setRestockInfo] = useState(null);
   const [warehouseInfo, setWarehouseInfo] = useState(null);
   const [databaseInfo, setDatabaseInfo] = useState(null);
   const [inventoryInfo, setInventoryInfo] = useState(null);
+
+  async function downloadMaster() {
+  try {
+    const res = await axios.post(                         //LETS COME BACK TO IT!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      "http://localhost:8000/generate/master",
+      null,
+      { responseType: "blob" }
+    );
+
+    const url = window.URL.createObjectURL(new Blob([res.data]));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "master_dataset.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  } catch (err) {
+    alert("Failed to generate master file. Make sure required files are uploaded.");
+    console.error(err);
+  }
+}
 
   return (
     <div style={{ maxWidth: 900, margin: "40px auto", padding: 16 }}>
@@ -49,9 +73,17 @@ export default function Upload_Generate() {
             <li>Database: {databaseInfo ? "✅" : "❌"}</li>
             <li>Inventory: {inventoryInfo? "✅" : "❌"} </li>
           </ul>
-          <p style={{ fontSize: 13, color: "#555" }}>
-            Next step: once Restock + Warehouse are uploaded, you can enable “Generate Master File”.
+          {/*<p style={{ fontSize: 13, color: "#555" }}>
+            You can now generate Master File.
           </p>
+          */}
+
+          <button
+          onClick={downloadMaster}
+          disabled={!(restockInfo && warehouseInfo && databaseInfo)}
+        >
+          Generate Master File
+        </button>
         </div>
       </div>
     </div>

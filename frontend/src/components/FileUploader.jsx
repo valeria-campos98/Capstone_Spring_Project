@@ -109,7 +109,7 @@ return (
       )}
 
       {status === "success" && (
-        <p style={{ marginTop: 10, color: "green" }}>✅ Uploaded!</p>
+        <p style={{ marginTop: 10, color: "green" }}> Uploaded!</p>
       )}
 
       {status === "error" && (
