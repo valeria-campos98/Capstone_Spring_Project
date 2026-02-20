@@ -13,7 +13,7 @@ import { FaXmark } from "react-icons/fa6";
 
 
 
-{/* The whole thing will be wrapped, we can pass in data, we custimize all the icons on the top level*/}
+
 
 function Navbar() {
     const [sidebar, setSidebar] = useState(false)

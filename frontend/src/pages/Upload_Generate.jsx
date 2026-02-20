@@ -14,7 +14,7 @@ export default function Upload_Generate() {
 
   async function downloadMaster() {
   try {
-    const res = await axios.post(                         //LETS COME BACK TO IT!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    const res = await axios.post(                         
       "http://localhost:8000/generate/master",
       null,
       { responseType: "blob" }
@@ -78,10 +78,7 @@ export default function Upload_Generate() {
             <li>Database: {databaseInfo ? <IoMdCheckmarkCircleOutline className="icon success" />  : <RiErrorWarningLine className="icon error" />}</li>
             <li>Inventory: {inventoryInfo? <IoMdCheckmarkCircleOutline className="icon success" /> : <RiErrorWarningLine className="icon error" />} </li>
           </ul>
-          {/*<p style={{ fontSize: 13, color: "#555" }}>
-            You can now generate Master File.
-          </p>
-          */}
+          
 
           <button
           className="generate-button"

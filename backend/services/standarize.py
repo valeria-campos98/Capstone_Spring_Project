@@ -33,19 +33,14 @@ def standardize_df(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def standardize_database(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Database file specific cleanup:
-    - seller sku → sku (internal SKU)
-    - keep fnsku
-    - amazon sku is optional
-    """
+   
     df = standardize_df(df)
 
     # Seller SKU is the internal SKU
     if "seller_sku" in df.columns and "sku" not in df.columns:
         df = df.rename(columns={"seller_sku": "sku"})
 
-    # Optional: normalize amazon sku naming
+    # normalize amazon sku naming
     if "amazon sku" in df.columns and "amazon_sku" not in df.columns:
         df = df.rename(columns={"amazon sku": "amazon_sku"})
 
@@ -67,8 +62,3 @@ def standardize_inventory(df: pd.DataFrame) -> pd.DataFrame:
 
     
     return df[keep_cols].copy()
-#def load_and_standardize_csv(path: str | Path, encoding="cp1252") -> pd.DataFrame:
- #   df = pd.read_csv(path, encoding=encoding, na_values=NA_TOKENS)
-  #  return standardize_df(df)
-
-# might not need load and standarize then...

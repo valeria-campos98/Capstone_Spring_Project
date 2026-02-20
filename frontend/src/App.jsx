@@ -30,10 +30,6 @@ function App() {
   );
 }
 
-/*
- <Navbar/> Renders a navigation bar component & because it is outside of <Routes>, it will appear on every page,regardless of the route
- <Routes> is a container for the route definitions , it decides which conponent to render based ont the url
- <Route path ='/'/> defines a route for the home URL (/) as of now there is no element
-*/
+
 
 export default App

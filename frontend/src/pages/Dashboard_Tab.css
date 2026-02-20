@@ -6,35 +6,66 @@
   padding: 20px;
 }
 
-/* Make table take full width */
+/* makes table take full width */
 .dashboard-table {
   width: 100%;
-  border-collapse: collapse;   /* IMPORTANT */
+  border-collapse: collapse;   
   margin-top: 20px;
   background-color: white;
   color:black;
 }
 
-/* Header styling */
+/* header styling */
 .dashboard-table thead {
   background-color: #f4f4f4;
 }
 
-/* Borders for ALL cells */
+/* borders for all cells */
 .dashboard-table th,
 .dashboard-table td {
-  border: 1px solid #ccc;     /* This adds borders */
+  border: 1px solid #ccc;     
   padding: 8px;
   text-align: left;
   font-size: 14px;
 }
 
-/* Optional hover effect */
+ 
+
+/* hover effect */
 .dashboard-table tbody tr:hover {
   background-color: #ecbf6b;
 }
 
-/* Optional: alternating row colors */
+/* alternating row colors */
 .dashboard-table tbody tr:nth-child(even) {
   background-color: #fafafa;
+}
+
+.table-scroll{
+    max-height:400px;
+    overflow-y:auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.filter-box {
+  width: 380px;
+  max-width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+.filter-box:focus {
+  border-color: #999;
 }

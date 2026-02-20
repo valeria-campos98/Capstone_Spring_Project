@@ -12,7 +12,7 @@ from services.matching import build_master_dataset
 
 app = FastAPI()
 
-# Simple in-memory store (fine for local app / demo)---> can if be used?
+
 
 DATA_STORE = {
     "restock": None,
@@ -22,7 +22,7 @@ DATA_STORE = {
 }
 
 app.add_middleware(
-    CORSMiddleware, # Cross-origin resource sharing
+    CORSMiddleware, # cross-origin resource sharing
     allow_origins=["http://localhost:5173"],
     allow_methods=["*"],
     allow_headers=["*"],
@@ -60,7 +60,7 @@ def read_csv_or_excel(upload: UploadFile) -> pd.DataFrame:
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Failed to read file: {str(e)}")
                    
-# POST / upload/ ect Accepts and validates file --> .post accepts http post requests
+
 # this file should decide which columns are required, which files are allowed, and what happens when something is missing
 # "when the frontend sends a POST request to /upload/restock, run this function"
 @app.post("/upload/restock") 
@@ -73,7 +73,7 @@ async def upload_restock(file: UploadFile = File(...)):
     if "fnsku" not in df.columns:
         raise HTTPException(
             status_code=400,
-            detail="Restock file must include  FNSKU columns" # CHECK LOGIC TO SEE WHAT IT SHOULD ACTUALLY BE LOOKING FOR!!!!!!!!!!
+            detail="Restock file must include  FNSKU columns" 
         )
     DATA_STORE["restock"] = df 
 
@@ -86,7 +86,6 @@ async def upload_restock(file: UploadFile = File(...)):
 
 async def upload_warehouse(file: UploadFile = File(...)):
     df = standardize_df(read_csv_or_excel(file))
-    print("\nINVENTORY PREVIEW:")
     print(df.head(5))
     if "sku" not in df.columns or "warehouse_location" not in df.columns: #MAYBE NOT CORRECT LOGIC
         raise HTTPException(
@@ -96,14 +95,13 @@ async def upload_warehouse(file: UploadFile = File(...)):
     DATA_STORE["warehouse"] = df
     return {
         "file": file.filename,
-        "rows": len(df),                                           #Why are we returning this ?
+        "rows": len(df),                                           
         "message": "Warehouse file uploaded successfully"
     }
 @app.post("/upload/inventory")
 
 async def upload_inventory(file: UploadFile = File(...)):
     df = standardize_inventory(read_csv_or_excel(file))
-    print("\nINVENTORY PREVIEW:")
     print(df.head(5))
 
     
@@ -148,7 +146,7 @@ async def generate_master():
     warehouse_df = DATA_STORE["warehouse"]
     inventory_df = DATA_STORE["inventory"]  # optional
 
-    # Require the minimum needed to build Master
+    # required ,minimum needed to build Master
     if restock_df is None or database_df is None or warehouse_df is None:
         raise HTTPException(
             status_code=400,
@@ -183,7 +181,7 @@ def get_low_stock(limit: int = 200):
     if df is None:
         raise HTTPException(400, "Upload restock report first")
 
-    # Example filter (adjust to your real column names)
+
     if "days_of_supply_alert" in df.columns:
         low = df[df["days_of_supply_alert"] == 1]
     elif "total_days_of_supply" in df.columns:
