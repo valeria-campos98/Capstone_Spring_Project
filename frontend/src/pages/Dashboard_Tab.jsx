@@ -1,6 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./Dashboard_Tab.css";
 import axios from "axios";
+import low_stock_image from '../assets/low_stock_image.png'
+import Out_of_stock from '../assets/Out_of_stock.png'
+import total_stock from '../assets/total_stock.png'
+import { CgArrowTopRight } from "react-icons/cg";
+
+
+
 
 export default function Dashboard_Tab() {
   const [rows, setRows] = useState([]);
@@ -32,9 +39,81 @@ export default function Dashboard_Tab() {
     });
   }, [rows, query]);
 
+   const LOW_STOCK_THRESHOLD = 10;
+
+  const summary = useMemo(() => {
+    const lowStockCount = rows.filter((r) => {
+      const available = Number(r.available ?? 0);
+      return available > 0 && available <= LOW_STOCK_THRESHOLD;
+    }).length;
+
+    const outOfStockCount = rows.filter(
+      (r) => Number(r.available ?? 0) === 0
+    ).length;
+
+    const keyFor = (r) =>
+      r.asin || r.merchant_sku || r.fnsku || r.product_name || "UNKNOWN";
+
+    const totalProductsCount = new Set(rows.map(keyFor)).size;
+
+    return { lowStockCount, outOfStockCount, totalProductsCount };
+  }, [rows]);
+
   return (
-    <div className="dashboard-table-wrapper">
-      <div className="dashboard-header">
+
+   
+    
+     <div className="dashWrapper" >
+
+      
+        <div className=" dashHeader">
+          <span className = "dashTop">Dashboard</span>
+        </div>
+
+     <div className = "innerContainer">
+        <div className="containerOne">
+         <div  className="dCardContainer">
+
+            <div className="dashCard">
+              <img src = {low_stock_image} alt="low stock"/>
+              <span>Low Stock ({summary.lowStockCount}) </span>
+
+           <CgArrowTopRight 
+              className="cornerIcon"
+              onClick={() => alert("Clicked!")}
+                                           />
+            </div>
+            <div className="dashCard1">
+              <img src ={ Out_of_stock} alt= "out of stock"/>
+              <span>Out of Stock ({summary.outOfStockCount})</span>
+              <CgArrowTopRight 
+              className="cornerIcon"
+              onClick={() => alert("Clicked!")}
+                                           />
+            </div>
+            <div className="dashCard2">
+              <img src ={ total_stock} alt= "total stock"/>
+              <span>Total Products ({summary.totalProductsCount})</span>
+              <CgArrowTopRight 
+              className="cornerIcon"
+              onClick={() => alert("Clicked!")}
+                                           />
+              </div>
+          </div>
+        </div>
+
+        <div className = " containerTwo">
+     
+
+        </div>
+
+     </div>
+      
+
+    <div className="dashBody">
+     <div className="dashboard-table-wrapper">
+     
+     <div className="dashboard-header">
         <h2>Low Stock Items</h2>
 
         <input
@@ -45,7 +124,6 @@ export default function Dashboard_Tab() {
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
-
       <div className="table-scroll">
         <table className="dashboard-table">
           <thead>
@@ -85,6 +163,8 @@ export default function Dashboard_Tab() {
       <p style={{ marginTop: 10, fontSize: 13, color: "#666" }}>
         Showing {filteredRows.length} item(s)
       </p>
+    </div>
+    </div>
     </div>
   );
 }

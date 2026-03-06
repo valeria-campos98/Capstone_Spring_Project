@@ -69,3 +69,136 @@
 .filter-box:focus {
   border-color: #999;
 }
+
+.dashHeader{
+    height:15vh;
+    background: rgb(255, 255, 255);
+    display:flex;
+    align-items:center;
+    justify-content:end;
+    width: 90vw;
+}
+
+.dashTop{
+    margin-right: 20px;
+    font-size:60px;
+    font-weight: 900;
+}
+
+.dashWrapper{
+    width:100%;
+    min-height: 100vh;
+    padding: 90px;
+   
+}
+
+.innerContainer{
+    display:grid;
+    grid-template-columns:80% 20%;
+    background:rgb(196, 23, 23);
+    height:40vh;
+    margin:10px;
+}
+
+.containerOne{
+    width:90%;
+    background:rgb(105, 94, 94);
+
+}
+
+.containerTwo{
+    width:98%;
+    background:rgb(15, 141, 15);
+}
+
+
+
+.dCardContainer{
+    display:grid;
+    grid-template-columns:repeat(3,29%) ;
+    margin:10px;
+}
+
+.dashCard{
+    height: 260px;
+    width:270px;
+    background:#2fc5ff;
+    display:flex;
+    align-items: center;
+    flex-direction:row;
+   justify-content: flex-start;
+   gap:10px;
+   padding:10px;
+   border-radius: 20px;
+   position:relative;
+}
+
+.dashCard1{
+    height: 260px;
+    width:270px;
+    background:rgb(184, 24, 184);
+    display:flex;
+    align-items: center;
+    flex-direction:row;
+   justify-content: flex-start;
+   gap:10px;
+   padding:10px;
+     border-radius: 20px;
+    position:relative;
+}
+
+
+.dashCard2{
+    height: 260px;
+    width:270px;
+    background:orange;
+    display:flex;
+    align-items: center;
+    flex-direction:row;
+   justify-content: flex-start;
+   gap:10px;
+   padding:10px;
+     border-radius: 20px;
+     position:relative;
+}
+
+
+.dashCard img{
+     width: 80px;
+   height: 80px;
+   object-fit: 100%;
+   
+}
+
+.dashCard1 img{
+     width: 80px;
+   height: 80px;
+   object-fit: 100%;
+
+}
+
+.dashCard2 img{
+   width: 80px;
+   height: 80px;
+   object-fit: 100%;
+
+}
+
+.dashCard span, .dashCard1 span, .dashCard2{
+
+    font-weight:900;
+    font-size:28px ;
+}
+
+.cornerIcon {
+  
+   position: absolute;
+  top: 8px;
+  right: 8px;
+
+  font-size: 60px;
+  cursor: pointer;
+
+  z-index: 10;
+}
+
