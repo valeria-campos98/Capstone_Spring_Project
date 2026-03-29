@@ -1,204 +1,354 @@
-
-
-.dashboard-table-wrapper {
-  max-width: 1000px;
-  margin: 60px auto;
-  padding: 20px;
-}
-
-/* makes table take full width */
-.dashboard-table {
+.dashboardPageLight {
+  min-height: 100vh;
+  padding: 32px;
   width: 100%;
-  border-collapse: collapse;   
-  margin-top: 20px;
-  background-color: white;
-  color:black;
+  background:
+    radial-gradient(circle at top left, rgba(121, 88, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #f8faff 0%, #eef2ff 100%);
+  color: #1f2937;
 }
 
-/* header styling */
-.dashboard-table thead {
-  background-color: #f4f4f4;
+.heroBannerLight {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 28px 30px;
+  border-radius: 26px;
+  background: linear-gradient(90deg, #5b4cf0 0%, #9f3df5 100%);
+  box-shadow: 0 16px 34px rgba(91, 76, 240, 0.18);
+  margin-bottom: 22px;
 }
 
-/* borders for all cells */
-.dashboard-table th,
-.dashboard-table td {
-  border: 1px solid #ccc;     
-  padding: 8px;
-  text-align: left;
-  font-size: 14px;
+.eyebrowLight,
+.panelEyebrowLight {
+  margin: 0 0 6px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.82);
 }
 
- 
-
-/* hover effect */
-.dashboard-table tbody tr:hover {
-  background-color: #ecbf6b;
+.heroBannerLight h1 {
+  margin: 0 0 8px;
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #ffffff;
 }
 
-/* alternating row colors */
-.dashboard-table tbody tr:nth-child(even) {
-  background-color: #fafafa;
+.heroSubtextLight {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1rem;
 }
 
-.table-scroll{
-    max-height:400px;
-    overflow-y:auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+.heroBadgeLight {
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: 0.9rem;
+  color: #ffffff;
+  white-space: nowrap;
 }
 
-.dashboard-header {
+.statsGridLight {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.statCardLight,
+.panelLight {
+  background: #ffffff;
+  border: 1px solid #e6eaf7;
+  border-radius: 22px;
+  box-shadow: 0 10px 24px rgba(31, 41, 55, 0.06);
+}
+
+.statCardLight {
+  padding: 22px;
+}
+
+.statHeaderLight,
+.panelHeaderLight,
+.tableTopBarLight {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 14px;
 }
 
-.filter-box {
+.statHeaderLight span {
+  font-weight: 600;
+  color: #334155;
+}
+
+.statCardLight h2 {
+  margin: 18px 0 12px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.statCardLight p {
+  margin: 12px 0 0;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.statIconLight {
+  font-size: 1.2rem;
+}
+
+.warningLight {
+  color: #f59e0b;
+}
+
+.dangerLight {
+  color: #ef4444;
+}
+
+.successLight {
+  color: #10b981;
+}
+
+.progressTrackLight {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #e9edf7;
+  overflow: hidden;
+}
+
+.progressFillLight {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.warningFillLight {
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+
+.dangerFillLight {
+  background: linear-gradient(90deg, #fb7185, #ef4444);
+}
+
+.successFillLight {
+  background: linear-gradient(90deg, #34d399, #10b981);
+}
+
+.mainGridLight {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(290px, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.chartPanelLight,
+.sidePanelLight,
+.tablePanelLight {
+  padding: 22px;
+}
+
+.panelHeaderLight h3,
+.tableTopBarLight h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #111827;
+}
+
+.panelEyebrowLight {
+  color: #7c3aed;
+  font-weight: 700;
+}
+
+.panelPillLight {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #f3f0ff;
+  color: #6d28d9;
+  font-size: 0.88rem;
+  border: 1px solid #e7ddff;
+}
+
+.chartAreaLight {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 18px;
+  background: #f8faff;
+  border: 1px solid #e6eaf7;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.chartRowLight {
+  display: grid;
+  grid-template-columns: 140px 1fr 48px;
+  align-items: center;
+  gap: 12px;
+}
+
+.chartLabelLight,
+.chartValueLight {
+  font-size: 0.92rem;
+  color: #334155;
+}
+
+.chartBarTrackLight {
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #e9edf7;
+}
+
+.chartBarFillLight {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #7c3aed 0%, #8b5cf6 55%, #c084fc 100%);
+}
+
+.focusListLight {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.focusItemLight {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #fafbff;
+  border: 1px solid #edf1fa;
+}
+
+.focusItemLight strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #111827;
+}
+
+.focusItemLight p {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.focusIconLight {
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  margin-top: 2px;
+  color: #7c3aed;
+}
+
+.searchWrapLight {
   width: 380px;
   max-width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  position: relative;
+}
+
+.searchIconLight {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.filterBoxLight {
+  width: 100%;
+  padding: 12px 14px 12px 38px;
+  border-radius: 14px;
+  border: 1px solid #dde3f2;
+  background: #ffffff;
+  color: #0f172a;
   outline: none;
-  font-size: 14px;
 }
 
-.filter-box:focus {
-  border-color: #999;
+.filterBoxLight::placeholder {
+  color: #94a3b8;
 }
 
-.dashHeader{
-    height:15vh;
-    background: rgb(255, 255, 255);
-    display:flex;
-    align-items:center;
-    justify-content:end;
-    width: 90vw;
+.tableScrollLight {
+  overflow-x: auto;
+  margin-top: 18px;
+  border-radius: 18px;
 }
 
-.dashTop{
-    margin-right: 20px;
-    font-size:60px;
-    font-weight: 900;
+.dashboardTableLight {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
 }
 
-.dashWrapper{
-    width:100%;
-    min-height: 100vh;
-    padding: 90px;
-   
+.dashboardTableLight thead {
+  background: #f4f7ff;
 }
 
-.innerContainer{
-    display:grid;
-    grid-template-columns:80% 20%;
-    background:rgb(196, 23, 23);
-    height:40vh;
-    margin:10px;
+.dashboardTableLight th,
+.dashboardTableLight td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #edf1fa;
 }
 
-.containerOne{
-    width:90%;
-    background:rgb(105, 94, 94);
-
+.dashboardTableLight th {
+  color: #334155;
+  font-size: 0.92rem;
 }
 
-.containerTwo{
-    width:98%;
-    background:rgb(15, 141, 15);
+.dashboardTableLight td {
+  color: #475569;
+  font-size: 0.95rem;
 }
 
-
-
-.dCardContainer{
-    display:grid;
-    grid-template-columns:repeat(3,29%) ;
-    margin:10px;
+.dashboardTableLight tbody tr:hover {
+  background: #f8faff;
 }
 
-.dashCard{
-    height: 260px;
-    width:270px;
-    background:#2fc5ff;
-    display:flex;
-    align-items: center;
-    flex-direction:row;
-   justify-content: flex-start;
-   gap:10px;
-   padding:10px;
-   border-radius: 20px;
-   position:relative;
+.emptyStateLight,
+.emptyTableCellLight {
+  text-align: center;
+  color: #64748b;
+  padding: 20px;
 }
 
-.dashCard1{
-    height: 260px;
-    width:270px;
-    background:rgb(184, 24, 184);
-    display:flex;
-    align-items: center;
-    flex-direction:row;
-   justify-content: flex-start;
-   gap:10px;
-   padding:10px;
-     border-radius: 20px;
-    position:relative;
+.tableFootnoteLight {
+  margin: 14px 0 0;
+  color: #64748b;
+  font-size: 0.9rem;
 }
 
-
-.dashCard2{
-    height: 260px;
-    width:270px;
-    background:orange;
-    display:flex;
-    align-items: center;
-    flex-direction:row;
-   justify-content: flex-start;
-   gap:10px;
-   padding:10px;
-     border-radius: 20px;
-     position:relative;
+@media (max-width: 1080px) {
+  .mainGridLight,
+  .statsGridLight {
+    grid-template-columns: 1fr;
+  }
 }
 
+@media (max-width: 780px) {
+  .dashboardPageLight {
+    padding: 18px;
+  }
 
-.dashCard img{
-     width: 80px;
-   height: 80px;
-   object-fit: 100%;
-   
+  .heroBannerLight,
+  .tableTopBarLight {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .heroBadgeLight {
+    align-self: flex-start;
+  }
+
+  .chartRowLight {
+    grid-template-columns: 90px 1fr 42px;
+  }
 }
-
-.dashCard1 img{
-     width: 80px;
-   height: 80px;
-   object-fit: 100%;
-
-}
-
-.dashCard2 img{
-   width: 80px;
-   height: 80px;
-   object-fit: 100%;
-
-}
-
-.dashCard span, .dashCard1 span, .dashCard2{
-
-    font-weight:900;
-    font-size:28px ;
-}
-
-.cornerIcon {
-  
-   position: absolute;
-  top: 8px;
-  right: 8px;
-
-  font-size: 60px;
-  cursor: pointer;
-
-  z-index: 10;
-}
-

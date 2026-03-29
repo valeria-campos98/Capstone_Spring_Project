@@ -11,9 +11,17 @@
 }
 
  .home, .upload_generate, .details, .settings_tab{
-  display :flex;
-  height:90vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
- }
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    flex: 1;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 3rem;
+}
+
+body, html, #root {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
