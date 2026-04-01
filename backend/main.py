@@ -3,8 +3,7 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 import pandas as pd
 import io
 from fastapi.middleware.cors import CORSMiddleware
-#from services.standarize import load_and_standardize_csv
-from services.standarize import standardize_df, standardize_database,standardize_inventory
+from services.standarize import standardize_df, standardize_database, standardize_inventory
 from fastapi.responses import StreamingResponse
 from services.matching import build_master_dataset
 
@@ -22,7 +21,7 @@ DATA_STORE = {
 }
 
 app.add_middleware(
-    CORSMiddleware, # cross-origin resource sharing
+    CORSMiddleware,
     allow_origins=["http://localhost:5173"],
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,7 +29,6 @@ app.add_middleware(
 
 
 @app.get("/")
-# GET / basically checks if backend is running
 async def health_check():
     return {"status": "Backend running"}
 
@@ -40,7 +38,6 @@ def read_csv_or_excel(upload: UploadFile) -> pd.DataFrame:
 
     try:
         if filename.endswith(".csv"):
-            # Try decoding bytes with common encodings first
             for enc in ("utf-8", "utf-8-sig", "cp1252", "latin1"):
                 try:
                     text = content.decode(enc)
@@ -48,7 +45,6 @@ def read_csv_or_excel(upload: UploadFile) -> pd.DataFrame:
                 except UnicodeDecodeError:
                     continue
 
-            # Last resort: decode with replacement so it never crashes
             text = content.decode("cp1252", errors="replace")
             return pd.read_csv(io.StringIO(text))
 
@@ -59,35 +55,32 @@ def read_csv_or_excel(upload: UploadFile) -> pd.DataFrame:
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Failed to read file: {str(e)}")
-                   
 
-# this file should decide which columns are required, which files are allowed, and what happens when something is missing
-# "when the frontend sends a POST request to /upload/restock, run this function"
-@app.post("/upload/restock") 
 
+@app.post("/upload/restock")
 async def upload_restock(file: UploadFile = File(...)):
     df = standardize_df(read_csv_or_excel(file))
     app.state.restock_df = df
-    print("\nINVENTORY PREVIEW:")
+    print("\nRESTOCK PREVIEW:")
     print(df.head(5))
     if "fnsku" not in df.columns:
         raise HTTPException(
             status_code=400,
-            detail="Restock file must include  FNSKU columns" 
+            detail="Restock file must include FNSKU columns"
         )
-    DATA_STORE["restock"] = df 
+    DATA_STORE["restock"] = df
 
     return {
         "file": file.filename,
         "rows": len(df),
         "message": "Restock file uploaded successfully"
     }
-@app.post("/upload/warehouse")
 
+@app.post("/upload/warehouse")
 async def upload_warehouse(file: UploadFile = File(...)):
     df = standardize_df(read_csv_or_excel(file))
     print(df.head(5))
-    if "sku" not in df.columns or "warehouse_location" not in df.columns: #MAYBE NOT CORRECT LOGIC
+    if "sku" not in df.columns or "warehouse_location" not in df.columns:
         raise HTTPException(
             status_code=400,
             detail="Warehouse file must include SKU and Warehouse Location columns"
@@ -95,22 +88,21 @@ async def upload_warehouse(file: UploadFile = File(...)):
     DATA_STORE["warehouse"] = df
     return {
         "file": file.filename,
-        "rows": len(df),                                           
+        "rows": len(df),
         "message": "Warehouse file uploaded successfully"
     }
-@app.post("/upload/inventory")
 
+@app.post("/upload/inventory")
 async def upload_inventory(file: UploadFile = File(...)):
     df = standardize_inventory(read_csv_or_excel(file))
     print(df.head(5))
 
-    
     if "sku" not in df.columns and "fnsku" not in df.columns:
         raise HTTPException(
             status_code=400,
             detail="Inventory file must include SKU or FNSKU"
         )
-    DATA_STORE["inventory"] = df 
+    DATA_STORE["inventory"] = df
 
     return {
         "file": file.filename,
@@ -119,7 +111,6 @@ async def upload_inventory(file: UploadFile = File(...)):
     }
 
 @app.post("/upload/database")
-
 async def upload_database(file: UploadFile = File(...)):
     df = standardize_database(read_csv_or_excel(file))
 
@@ -130,8 +121,8 @@ async def upload_database(file: UploadFile = File(...)):
             status_code=400,
             detail=f"Database must include FNSKU and Seller SKU. Found: {list(df.columns)}"
         )
-        
-    DATA_STORE["database"] = df 
+
+    DATA_STORE["database"] = df
     return {
         "file": file.filename,
         "rows": len(df),
@@ -146,7 +137,6 @@ async def generate_master():
     warehouse_df = DATA_STORE["warehouse"]
     inventory_df = DATA_STORE["inventory"]  # optional
 
-    # required ,minimum needed to build Master
     if restock_df is None or database_df is None or warehouse_df is None:
         raise HTTPException(
             status_code=400,
@@ -163,7 +153,6 @@ async def generate_master():
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    # Return as downloadable CSV
     buf = io.StringIO()
     master_df.to_csv(buf, index=False)
     buf.seek(0)
@@ -174,22 +163,16 @@ async def generate_master():
         headers={"Content-Disposition": "attachment; filename=master_dataset.csv"},
     )
 
+
 @app.get("/restock/low-stock")
-def get_low_stock(limit: int = 200):
+def get_low_stock(limit: int = 2000):
     df = getattr(app.state, "restock_df", None)
 
     if df is None:
         raise HTTPException(400, "Upload restock report first")
 
+    DAYS_COL = "total_days_of_supply_(including_units_from_open_shipments)"
 
-    if "days_of_supply_alert" in df.columns:
-        low = df[df["days_of_supply_alert"] == 1]
-    elif "total_days_of_supply" in df.columns:
-        low = df[df["total_days_of_supply"] < 30]
-    else:
-        low = df  # fallback so you can still demo
-
-    # choose columns you want to display
     cols = [
         c for c in [
             "product_name",
@@ -197,15 +180,14 @@ def get_low_stock(limit: int = 200):
             "merchant_sku",
             "asin",
             "available",
-            "total_days_of_supply"
-        ] if c in low.columns
+            DAYS_COL,
+            "units_sold_last_30_days",
+            "recommended_replenishment_qty",
+            "alert",
+        ] if c in df.columns
     ]
 
-    low = low[cols].head(limit)
-
-    return low.to_dict(orient="records")
+    return df[cols].head(limit).to_dict(orient="records")
 
 
-
-
-#function recieves the uploaded file, reads it, validates it, return a response
+#function recieves the uploaded file, validates it, return a response

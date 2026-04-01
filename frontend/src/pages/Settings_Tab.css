@@ -1,0 +1,220 @@
+.settingsPage {
+  min-height: 100vh;
+  padding: 32px;
+  width: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(121, 88, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #f8faff 0%, #eef2ff 100%);
+  color: #1f2937;
+}
+
+.settingsHero {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 30px;
+  border-radius: 26px;
+  background: linear-gradient(90deg, #5b4cf0 0%, #9f3df5 100%);
+  box-shadow: 0 16px 34px rgba(91, 76, 240, 0.18);
+  margin-bottom: 28px;
+}
+
+.settingsEyebrow {
+  margin: 0 0 6px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.settingsHero h1 {
+  margin: 0 0 8px;
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.settingsSubtext {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1rem;
+}
+
+.settingsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  max-width: 680px;
+}
+
+.settingsCard {
+  background: #ffffff;
+  border: 1px solid #e6eaf7;
+  border-radius: 22px;
+  box-shadow: 0 10px 24px rgba(31, 41, 55, 0.06);
+  padding: 28px;
+}
+
+.settingsCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.settingsCardEyebrow {
+  margin: 0 0 4px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #7c3aed;
+  font-weight: 700;
+}
+
+.settingsCardTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.settingsCardDesc {
+  margin: 0 0 18px;
+  color: #64748b;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.settingsCurrentBadge {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #f3f0ff;
+  border: 1px solid #e7ddff;
+  font-size: 0.88rem;
+  color: #4c1d95;
+  margin-bottom: 20px;
+}
+
+.settingsCurrentBadge strong {
+  color: #7c3aed;
+}
+
+.settingsInputRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.settingsInputWrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dde3f2;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+  padding: 0 14px;
+  gap: 8px;
+}
+
+.settingsInput {
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  font-size: 1rem;
+  color: #0f172a;
+  width: 100px;
+  background: transparent;
+}
+
+.settingsInput::-webkit-inner-spin-button,
+.settingsInput::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+.settingsInputLabel {
+  font-size: 0.88rem;
+  color: #94a3b8;
+}
+
+.settingsSaveBtn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #5b4cf0, #9f3df5);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.settingsSaveBtn:hover {
+  opacity: 0.88;
+}
+
+.settingsResetBtn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: #f8faff;
+  color: #64748b;
+  font-weight: 500;
+  font-size: 0.92rem;
+  border: 1px solid #dde3f2;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.settingsResetBtn:hover {
+  background: #eef2ff;
+}
+
+.settingsSavedMsg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: #10b981;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.settingsSavedMsg svg {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.settingsHintBox {
+  margin-top: 20px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #f8faff;
+  border: 1px solid #e6eaf7;
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.settingsHintBox code {
+  background: #ede9fe;
+  color: #6d28d9;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .settingsPage {
+    padding: 18px;
+  }
+  .settingsInputRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .settingsSaveBtn,
+  .settingsResetBtn {
+    width: 100%;
+  }
+}
