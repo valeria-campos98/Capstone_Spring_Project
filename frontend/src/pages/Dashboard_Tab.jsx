@@ -115,22 +115,30 @@ export default function Dashboard_Tab_Light({ lowStockThreshold = null }) {
     });
   }, [alertRows, query]);
 
+  const getProductKey = (r) => {
+    if (r.merchant_sku) {
+      const parts = r.merchant_sku.split("-");
+      return parts.length > 1 ? parts.slice(0, -1).join("-") : r.merchant_sku;
+    }
+    if (r.product_name) return r.product_name.split("|")[0].trim();
+    return r.asin || "Item";
+  };
+
   const chartData = useMemo(() => {
     const grouped = {};
     normalizedRows.forEach((r) => {
-      const rawName = r.product_name || r.merchant_sku || r.asin || "Item";
-      const name = rawName.split("|")[0].trim();
-      if (!grouped[name]) grouped[name] = 0;
-      grouped[name] += r.unitsSold;
+      const key = getProductKey(r);
+      if (!grouped[key]) grouped[key] = 0;
+      grouped[key] += r.unitsSold;
     });
     return Object.entries(grouped)
       .map(([label, value]) => ({
-        label: label.length > 28 ? label.slice(0, 28) + "…" : label,
+        label: label.length > 35 ? label.slice(0, 35) + "…" : label,
         value,
       }))
       .filter((item) => item.value > 0)
       .sort((a, b) => b.value - a.value)
-      .slice(0, 7);
+      .slice(0, 10);
   }, [normalizedRows]);
 
   const CustomTooltip = ({ active, payload, label }) => {
@@ -240,11 +248,11 @@ export default function Dashboard_Tab_Light({ lowStockThreshold = null }) {
             {chartData.length === 0 ? (
               <div className="emptyState">No chart data available.</div>
             ) : (
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={400}>
                 <BarChart
                   data={chartData}
                   layout="vertical"
-                  margin={{ top: 4, right: 40, left: 12, bottom: 4 }}
+                  margin={{ top: 4, right: 40, left: 20, bottom: 4 }}
                 >
                   <XAxis
                     type="number"
@@ -262,7 +270,7 @@ export default function Dashboard_Tab_Light({ lowStockThreshold = null }) {
                   <YAxis
                     type="category"
                     dataKey="label"
-                    width={160}
+                    width={200}
                     tick={{ fontSize: 12, fill: "#374151" }}
                     axisLine={false}
                     tickLine={false}
