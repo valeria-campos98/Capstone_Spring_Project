@@ -1,34 +1,55 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
+import "./FileUploader.css";
 
-
-/* why 8000 not 5174?""*/
 const API_BASE = "http://localhost:8000";
 
+export default function FileUploader({ label, accept, endpoint, onUploaded }) {
+  const [file, setFile] = useState(null);
+  const [status, setStatus] = useState("idle"); // idle | uploading | success | error
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [isDragOver, setIsDragOver] = useState(false);
+  const inputRef = useRef(null);
 
+  function pickFile(f) {
+    if (!f) return;
+    setFile(f);
+    setStatus("idle");
+    setUploadProgress(0);
+    setErrorMsg("");
+  }
 
-export default function FileUploader({label, accept, endpoint,onUploaded}){
+  function handleFileChange(e) {
+    const f = e.target.files?.[0] || null;
+    pickFile(f);
+  }
 
-     const [file, setFile] = useState(null);
-     const [status, setStatus] = useState("idle"); // idle | uploading | success | error
-     const [uploadProgress, setUploadProgress] = useState(0);
-     const [errorMsg, setErrorMsg] = useState("");
+  function handleDragOver(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(true);
+  }
 
-    /* its null but basically says, "you have a file with all the details or you dont" */
-    
+  function handleDragLeave(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(false);
+  }
 
-    function handleFileChange(e) {
-   
-        /*setFile(e.target.files[0]); /*we are passing the first file*/
-        const f = e.target.files?.[0] || null;
-        /*Below resets UI/Upload State*/
-        setFile(f);
-        setStatus("idle");
-        setUploadProgress(0);
-        setErrorMsg("");
-    }
+  function handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(false);
+    const f = e.dataTransfer.files?.[0] || null;
+    pickFile(f);
+  }
 
-    async function handleFileUpload() {
+  function openFilePicker() {
+    inputRef.current?.click();
+  }
+
+  async function handleFileUpload() {
     if (!file) return;
 
     setStatus("uploading");
@@ -50,72 +71,95 @@ export default function FileUploader({label, accept, endpoint,onUploaded}){
 
       setStatus("success");
       setUploadProgress(100);
-      onUploaded?.(res.data); /* res.data is exactly the object returned from FastAPI*/ 
+      onUploaded?.(res.data); /* res.data is exactly the object returned from FastAPI */
     } catch (err) {
       setStatus("error");
       setUploadProgress(0);
-    
+
       console.log("UPLOAD ERROR:", err);
 
-  const detail =
-    err?.response?.data?.detail ||
-    err?.message ||
-    "Upload failed. Please try again.";
+      const detail =
+        err?.response?.data?.detail ||
+        err?.message ||
+        "Upload failed. Please try again.";
 
-  setErrorMsg(detail);
+      setErrorMsg(detail);
     }
   }
 
-    
+  const dropzoneClass =
+    "fu-dropzone" +
+    (isDragOver ? " is-dragover" : "") +
+    (file ? " has-file" : "");
 
-/*whenever input onChange gets called , which will be called whenever we select the input file in our browser */
-return (
-    /* we want to take the file form the input and put it in a state , to
-    do that you have to access the onChange event timer*/
-    
-<div style={{ border: "1px solid #ddd", borderRadius: 8, padding: 16 }}>
-      <h3 style={{ marginTop: 0 }}>{label}</h3>
+  return (
+    <div className="fu-root">
+      {/* Hidden native input — opened by clicking dropzone */}
+      <input
+        ref={inputRef}
+        type="file"
+        accept={accept}
+        onChange={handleFileChange}
+        className="fu-input"
+        aria-label={label}
+      />
 
-      <input type="file" accept={accept} onChange={handleFileChange} />
-
-      {file && (
-        <div style={{ marginTop: 10, fontSize: 14 }}>
-          <div><b>Name:</b> {file.name}</div>
-          <div><b>Size:</b> {(file.size / 1024).toFixed(2)} KB</div>
-        </div>
-      )}
+      <div
+        className={dropzoneClass}
+        onClick={openFilePicker}
+        onDragOver={handleDragOver}
+        onDragEnter={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openFilePicker();
+          }
+        }}
+      >
+        {file ? (
+          <div className="fu-file-line">
+            <span className="fu-file-name" title={file.name}>{file.name}</span>
+            <span className="fu-file-size">{(file.size / 1024).toFixed(1)} KB</span>
+          </div>
+        ) : (
+          <>
+            <svg className="fu-icon" viewBox="0 0 24 24" fill="none"
+                 stroke="#9ca3af" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <path d="M12 3 v12"/>
+              <path d="M7 8 l5-5 l5 5"/>
+            </svg>
+            <span className="fu-text">Browse file or drag &amp; drop</span>
+          </>
+        )}
+      </div>
 
       {status === "uploading" && (
-        <div style={{ marginTop: 12 }}>
-          <div style={{ height: 10, background: "#eee", borderRadius: 999 }}>
-            <div
-              style={{
-                height: 10,
-                width: `${uploadProgress}%`,
-                background: "#3b82f6",
-                borderRadius: 999,
-                transition: "width 200ms",
-              }}
-            />
+        <div className="fu-progress">
+          <div className="fu-progress-track">
+            <div className="fu-progress-fill" style={{ width: `${uploadProgress}%` }} />
           </div>
-          <div style={{ fontSize: 12, marginTop: 6 }}>{uploadProgress}% uploaded</div>
+          <div className="fu-progress-text">{uploadProgress}% uploaded</div>
         </div>
       )}
 
-      {file && status !== "uploading" && (
-        <button style={{ marginTop: 12 }} onClick={handleFileUpload}>
+      {file && status === "idle" && (
+        <button className="fu-upload-btn" onClick={handleFileUpload}>
           Upload
         </button>
       )}
 
       {status === "success" && (
-        <p style={{ marginTop: 10, color: "green" }}> Uploaded!</p>
+        <p className="fu-status fu-status-success">✓ Uploaded</p>
       )}
 
       {status === "error" && (
-        <p style={{ marginTop: 10, color: "crimson" }}>❌ {errorMsg}</p>
+        <p className="fu-status fu-status-error">❌ {errorMsg}</p>
       )}
     </div>
-
-);
+  );
 }

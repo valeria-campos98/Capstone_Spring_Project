@@ -1,3 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Oswald:wght@400;500;600&family=Bodoni+Moda:opsz,wght@6..96,300&family=Inter:wght@300;400;500&display=swap');
 
+.home-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #0d0d0d;
+}
 
+/* ── Hero ── */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+}
 
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.38);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    rgba(5, 7, 25, 0.8) 0%,
+    rgba(5, 7, 25, 0.40) 50%,
+    rgba(5, 7, 25, 0.06) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px 56px 44px;
+}
+
+/* ── Top bar ── */
+.hero-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-brand {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── Middle — title left, cards right ── */
+.hero-middle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 400px;
+  padding: 24px 0;
+  margin-top: -100px;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.32);
+  margin-bottom: 18px;
+}
+
+.hero-tag-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #E07B2A;
+  flex-shrink: 0;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.hero-title em {
+  font-family: 'Playfair Display', serif !important;
+  font-style: italic;
+  color: #E07B2A;
+}
+
+/* ── Cards inside hero ── */
+.hero-cards {
+  display: grid;
+  grid-template-columns: 190px 190px;
+  gap: 10px;
+  align-items: start;
+  flex-shrink: 0;
+  margin-top: 150px;
+}
+
+.cards-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.right-col {
+  margin-top: -52px;
+}
+
+/* ── Stat Card ── */
+.stat-card {
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.stat-card.cream { background: #ffffff; }
+.stat-card.white { background: #ffffff; }
+.stat-card.navy  { background: #ffffff; }
+
+.card-top {
+  padding: 18px 20px 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-label {
+  font-family: 'Plus Jakarta Sans' , sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.card-label.orange { color: #131212; }
+.card-label.dark   { color: #333333; }
+.card-label.light  { color: #333333; }
+
+.card-num {
+  font-family: 'Plus Jakarta Sans', serif;
+  font-size: 48px;
+  font-weight: 200;
+  line-height: 1;
+  margin: 2px 0;
+}
+
+.card-num.orange { color: #111111; }
+.card-num.dark   { color: #111111; }
+.card-num.light  { color: #111111; }
+
+.card-context {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.card-context.dark  { color: #050f49; }
+.card-context.light { color: #050f49; }
+
+/* ── Card button bar ── */
+.card-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 20px;
+  transition: background 0.15s;
+}
+
+.card-btn.cream-btn       { background: #1e2468; }
+.card-btn.cream-btn:hover { background: #161b5e; }
+.card-btn.dark-btn        { background: #1e2468; }
+.card-btn.dark-btn:hover  { background: #161b5e; }
+.card-btn.navy-btn        { background: #1e2468; }
+.card-btn.navy-btn:hover  { background: #161b5e; }
+
+.card-btn-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cream-btn .card-btn-label { color: #ffffff; }
+.dark-btn  .card-btn-label { color: #ffffff; }
+.navy-btn  .card-btn-label { color: #ffffff; }
+
+.card-btn-arr { font-size: 14px; }
+.cream-btn .card-btn-arr { color: rgba(255,255,255,.6); }
+.dark-btn  .card-btn-arr { color: rgba(255,255,255,.6); }
+.navy-btn  .card-btn-arr { color: rgba(255,255,255,.6); }
+
+/* ── Bottom row ── */
+.hero-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.hero-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.38);
+  line-height: 1.7;
+  max-width: 220px;
+  margin: 0;
+}
+
+.hero-spacer { flex: 1; }
+
+.hero-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.hero-stat-num.danger { color: #f87171; }
+.hero-stat-num.warn   { color: #fbbf24; }
+.hero-stat-num.ok     { color: #34d399; }
+
+.hero-stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hero-middle {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .right-col { margin-top: 0; }
+}
+
+@media (max-width: 768px) {
+  .hero-content { padding: 24px 28px 32px; }
+  .hero-bottom  { flex-direction: column; align-items: flex-start; }
+  .hero-stats   { flex-direction: row; gap: 24px; }
+  .hero-stat    { align-items: flex-start; }
+  .hero-cards   { grid-template-columns: 1fr 1fr; }
+}

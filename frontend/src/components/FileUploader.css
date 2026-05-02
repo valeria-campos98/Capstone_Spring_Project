@@ -1,0 +1,138 @@
+.fu-root {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Visually hidden but still operable */
+.fu-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.fu-dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 56px;
+  background: #f1f1f3;
+  border: 1px dashed #b5b6b8;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  font-size: 12px;
+  color: #646a77;
+  padding: 0 12px;
+  user-select: none;
+  outline: none;
+}
+.fu-dropzone:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+.fu-dropzone:focus-visible {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+.fu-dropzone.is-dragover {
+  background: #eff6ff;
+  border-color: #2563eb;
+  border-style: solid;
+  color: #2563eb;
+}
+.fu-dropzone.has-file {
+  background: #fff;
+  border-style: solid;
+  border-color: #d1d5db;
+}
+
+.fu-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.fu-text {
+  font-size: 12px;
+  color: inherit;
+}
+
+.fu-file-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  text-align: center;
+  min-width: 0;
+}
+.fu-file-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fu-file-size {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.fu-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.fu-progress-track {
+  height: 6px;
+  background: #f3f4f6;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.fu-progress-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 3px;
+  transition: width 0.2s;
+}
+.fu-progress-text {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.fu-upload-btn {
+  align-self: flex-start;
+  background: #2563eb;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.fu-upload-btn:hover {
+  background: #1e40af;
+}
+
+.fu-status {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+.fu-status-success { color: #16a34a; }
+.fu-status-error   { color: #dc2626; }

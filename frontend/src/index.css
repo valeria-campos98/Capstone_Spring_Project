@@ -1,5 +1,6 @@
 :root {
-  font-family: 'Rubik', sans-serif;
+  
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -66,7 +67,5 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-.upload-title {
-  font-family: 'Rubik', sans-serif;
-}
+
 
